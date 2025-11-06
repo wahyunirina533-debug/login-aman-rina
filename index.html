@@ -4,21 +4,84 @@
   <meta charset="UTF-8" />
   <title>Login Aman Supabase</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button {
+      background: #fff;
+      color: #2575fc;
+      font-weight: bold;
+      border: none;
+      padding: 8px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2575fc;
+      color: white;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-  <h2>Login Aman Supabase</h2>
+  <div class="container">
+    <h2>Login Aman Supabase</h2>
 
-  <h3>Register</h3>
-  <input type="email" id="regEmail" placeholder="Email">
-  <input type="password" id="regPass" placeholder="Password">
-  <button onclick="register()">Daftar</button>
+    <h3>Register</h3>
+    <input type="email" id="regEmail" placeholder="Masukkan Email"><br>
+    <input type="password" id="regPass" placeholder="Masukkan Password"><br>
+    <button onclick="register()">Daftar</button>
 
-  <h3>Login</h3>
-  <input type="email" id="logEmail" placeholder="Email">
-  <input type="password" id="logPass" placeholder="Password">
-  <button onclick="login()">Masuk</button>
+    <h3>Login</h3>
+    <input type="email" id="logEmail" placeholder="Masukkan Email"><br>
+    <input type="password" id="logPass" placeholder="Masukkan Password"><br>
+    <button onclick="login()">Masuk</button>
+    <button onclick="logout()">Logout</button>
 
-  <button onclick="logout()">Logout</button>
+    <div class="message" id="message"></div>
+  </div>
 
   <script>
     const { createClient } = supabase;
@@ -26,12 +89,14 @@
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0emdpemF2enZweWNmcmlpdHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MzYxNDAsImV4cCI6MjA3ODAxMjE0MH0.5ZCieOi8W0Qa-wetqRAAcJI382-bD_HITOclUAUe4xY";
     const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
+    const message = document.getElementById("message");
+
     async function register() {
       const { error } = await supabaseClient.auth.signUp({
         email: regEmail.value,
         password: regPass.value
       });
-      alert(error ? error.message : "Registrasi Berhasil!");
+      message.innerHTML = error ? `<span style="color: #ff6b6b;">${error.message}</span>` : `<span style="color: #00ffcc;">Registrasi Berhasil!</span>`;
     }
 
     async function login() {
@@ -39,12 +104,12 @@
         email: logEmail.value,
         password: logPass.value
       });
-      alert(error ? error.message : "Login Berhasil!");
+      message.innerHTML = error ? `<span style="color: #ff6b6b;">${error.message}</span>` : `<span style="color: #00ffcc;">Login Berhasil!</span>`;
     }
 
     async function logout() {
       await supabaseClient.auth.signOut();
-      alert("Logout Berhasil!");
+      message.innerHTML = `<span style="color: #ccc;">Logout berhasil.</span>`;
     }
   </script>
 </body>
