@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Aman Supabase</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h2>Login Aman Supabase</h2>
+
+  <h3>Register</h3>
+  <input type="email" id="regEmail" placeholder="Email">
+  <input type="password" id="regPass" placeholder="Password">
+  <button onclick="register()">Daftar</button>
+
+  <h3>Login</h3>
+  <input type="email" id="logEmail" placeholder="Email">
+  <input type="password" id="logPass" placeholder="Password">
+  <button onclick="login()">Masuk</button>
+
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const { createClient } = supabase;
+    const supabaseUrl = "https://qtzgizavzvpycfriitxz.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0emdpemF2enZweWNmcmlpdHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MzYxNDAsImV4cCI6MjA3ODAxMjE0MH0.5ZCieOi8W0Qa-wetqRAAcJI382-bD_HITOclUAUe4xY";
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    async function register() {
+      const { error } = await supabaseClient.auth.signUp({
+        email: regEmail.value,
+        password: regPass.value
+      });
+      alert(error ? error.message : "Registrasi Berhasil!");
+    }
+
+    async function login() {
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email: logEmail.value,
+        password: logPass.value
+      });
+      alert(error ? error.message : "Login Berhasil!");
+    }
+
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      alert("Logout Berhasil!");
+    }
+  </script>
+</body>
+</html>
