@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Beranda - Sistem Login Aman</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #764ba2, #667eea);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 18px;
+      margin-top: 0;
+    }
+    #status {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #c6f6d5;
+    }
+    button {
+      margin-top: 25px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: #764ba2;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: #764ba2;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Selamat Datang 👋</h1>
+    <p id="userEmail">Memuat email...</p>
+    <p id="status">Status: Online</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const SUPABASE_URL = "https://qtzgizavzvpycfriitxz.supabase.co"; // ganti dengan URL kamu
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0emdpemF2enZweWNmcmlpdHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MzYxNDAsImV4cCI6MjA3ODAxMjE0MH0.5ZCieOi8W0Qa-wetqRAAcJI382-bD_HITOclUAUe4xY"; // ganti dengan anon key kamu
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Tampilkan email user yang login
+    supabase.auth.getUser().then(({ data }) => {
+      const email = data?.user?.email || "Pengguna";
+      document.getElementById("userEmail").innerText = `Email: ${email}`;
+    });
+
+    // Tombol logout
+    async function logout() {
+      await supabase.auth.signOut();
+      alert("Logout berhasil!");
+      window.location.href = "index.html"; // kembali ke halaman login
+    }
+  </script>
+</body>
+</html>
