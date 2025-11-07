@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Beranda - Sistem Login Aman</title>
+  <title>Home - Sistem Login Aman</title>
   <style>
     body {
       font-family: "Poppins", sans-serif;
@@ -45,7 +45,6 @@
   <div class="card">
     <h1>Selamat Datang 👋</h1>
     <p id="userEmail">Memuat email...</p>
-    <button onclick="goToProfile()">Ke Halaman Profil</button>
     <button onclick="logout()">Logout</button>
   </div>
 
@@ -56,7 +55,7 @@
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0emdpemF2enZweWNmcmlpdHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MzYxNDAsImV4cCI6MjA3ODAxMjE0MH0.5ZCieOi8W0Qa-wetqRAAcJI382-bD_HITOclUAUe4xY";
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // ambil email user
+    // cek sesi login
     checkSession();
     async function checkSession() {
       const { data } = await supabase.auth.getSession();
@@ -65,10 +64,6 @@
       } else {
         window.location.href = "index.html"; // kalau belum login
       }
-    }
-
-    function goToProfile() {
-      window.location.href = "profil.html";
     }
 
     async function logout() {
