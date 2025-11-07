@@ -2,11 +2,11 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Beranda - Sistem Login Aman</title>
+  <title>Profil - Sistem Login Aman</title>
   <style>
     body {
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #764ba2, #667eea);
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
       display: flex;
       flex-direction: column;
@@ -15,7 +15,6 @@
       height: 100vh;
       margin: 0;
     }
-
     .card {
       background: rgba(255, 255, 255, 0.12);
       padding: 45px;
@@ -25,23 +24,8 @@
       backdrop-filter: blur(8px);
       min-width: 320px;
     }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 17px;
-      margin-top: 5px;
-    }
-
-    #status {
-      margin-top: 8px;
-      font-size: 15px;
-      color: #b3ffd9;
-    }
-
+    h1 { margin-bottom: 10px; }
+    p { font-size: 17px; }
     button {
       margin-top: 20px;
       padding: 10px 22px;
@@ -51,32 +35,18 @@
       color: #764ba2;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
-
     button:hover {
       background: #764ba2;
       color: white;
-    }
-
-    .nav-btns {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Selamat Datang 👋</h1>
+    <h1>Halaman Profil 👤</h1>
     <p id="userEmail">Memuat email...</p>
-    <p id="status">Status: Online</p>
-
-    <div class="nav-btns">
-      <button onclick="goToProfile()">Ke Halaman Profil</button>
-      <button onclick="logout()">Logout</button>
-    </div>
+    <button onclick="backHome()">Kembali ke Beranda</button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -98,16 +68,8 @@
       }
     }
 
-    function goToProfile() {
-      window.location.href = "profil.html";
-    }
-
-    async function logout() {
-      const { error } = await supabase.auth.signOut();
-      if (!error) {
-        alert("Logout berhasil!");
-        window.location.href = "index.html";
-      }
+    function backHome() {
+      window.location.href = "home.html";
     }
   </script>
 </body>
